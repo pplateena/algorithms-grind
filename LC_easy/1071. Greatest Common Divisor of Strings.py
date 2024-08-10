@@ -2,8 +2,8 @@
 class Solution(object):
     def gcdOfStrings(self, str1, str2):
         """
-        Because we can use same fucntion n-times required to solve the problem we can implement recursion to
-        restart the function if it can furter processed.
+        Because we can use same function n-times required to solve the problem we can implement recursion to
+        restart the function if it can be processed further.
 
         For this task we have x major rules:
         1. Prefix of/first string has to be equal to Prefix of/second string
