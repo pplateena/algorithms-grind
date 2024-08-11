@@ -2,7 +2,7 @@
 Binary Search is very useful technique which provides O(log n) time complexity for working with sorted arrays of
 numbers. It can be used in various tasks, often implemented in other algorithms to speed up the process.
 """
-def binary_search(sorted_list:list[int], target) -> int:
+def binary_search(sorted_list:list[int], target: int) -> int:
     """
     :param sorted_list: list of integers, has to be sorted from smallest to largest
     :param target: int, the number we want to find inside the list
