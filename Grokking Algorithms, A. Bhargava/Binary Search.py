@@ -37,6 +37,21 @@ def binary_search(sorted_list:list[int], target: int) -> int:
 
     return None
 
+def Binary_recursion(nums: list[int], target: int, low: int = None, high: int = None) -> int:
+
+    if low is None or high is None:
+        low, high = 0, len(nums) - 1
+
+    mid = (low + high) // 2
+
+    if nums[mid] == target:
+        return mid
+    elif low == high:
+        return None
+    elif nums[mid] > target:
+        return Binary_recursion(nums, target, low, mid - 1)
+    else:
+        return Binary_recursion(nums, target, mid + 1, high)
 def generate_test():
     from random import randint
     generated_list = sorted([randint(0,25) for _ in range(randint(0,15))])
