@@ -1,23 +1,23 @@
-class Solution:
-    def twoSum(self, nums: list[int], target: int) -> list[int]:
-        set_nums = set(nums)
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
 
-        for number in nums:
-            looking_for = target - number
-            if looking_for in set_nums:
+        # target = current_item + diff
+        # diff = target - current_item
 
-                if looking_for == number and nums.count(number) == 1:
-                    continue
+        found = {}  # number: indice
+        for idx, n in enumerate(nums):
+            diff = target - n
+            if diff in found:
+                return [idx, found[diff]]
+            else:
+                found[n] = idx
 
-                first_i, second_i = nums.index(number), nums.index(looking_for)
-
-                if first_i == second_i:
-                    first_i = nums.index(number)
-                    nums.pop(first_i)
-                    second_i = nums.index(looking_for) + 1
-
-                return [first_i, second_i]
-
+        return []
 
 if __name__ == "__main__":
     s = Solution()
