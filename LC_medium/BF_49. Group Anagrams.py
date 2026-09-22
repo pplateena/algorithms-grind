@@ -1,21 +1,24 @@
-class Solution(object):
-    def groupAnagrams(self, strs):
-        """
-        :type strs: List[str]
-        :rtype: List[List[str]]
-        """
-        from collections import defaultdict
+class Solution:
+    def groupAnagrams(self, strs: list[str]) -> list[list[str]]:
 
-        if len(strs) < 2:
+        if len(strs) == 1:
             return [strs]
 
-        anagrams = defaultdict(list)  # "": []
-        for word in strs:
-            # sorted_word = "".join(sorted(word))
-            # anagrams[sorted_word].append(word)
-            anagrams["".join(sorted(word))].append(word)
+        anagrams_set = set()
+        output_dict = dict()
 
-        return [n for n in anagrams.values()]
+        for i, word in enumerate(strs):
+
+            letters = tuple(sorted(letter for letter in word))
+
+            if letters not in anagrams_set:
+                anagrams_set.add(letters)
+                output_dict[letters] = [word]
+            else:
+                output_dict[letters] += [word]
+
+        return [word_list for word_list in output_dict.values()]
+
 
 if __name__ == "__main__":
     s = Solution()
