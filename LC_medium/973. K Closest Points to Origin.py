@@ -7,6 +7,7 @@ class Solution(object):
         """
         import heapq
         from collections import defaultdict
+        from math import sqrt
         # h = points
         # √(x1 - x2)2 + (y1 - y2)2
         # return heapq.nsmallest(k, h, key = lambda p: sqrt((0 - p[0])**2 + (0 - p[1])**2))
