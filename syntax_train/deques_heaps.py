@@ -7,7 +7,8 @@ the reflex this file exists to break.
 Run:  python3 deques_heaps.py
 """
 from drill import run
-
+from collections import deque
+import heapq
 NUMS = [4, 1, 7, 3, 7, 9, 2]
 WORDS = ['pear', 'apple', 'pear', 'fig', 'apple', 'pear']
 ADJ = {0: [1, 2], 1: [0, 3], 2: [0], 3: [1]}
@@ -20,18 +21,28 @@ class Deq:
     @staticmethod
     def build(nums):
         """A deque from a list, returned as a list.   -> [4, 1, 7, 3, 7, 9, 2]"""
-        raise NotImplementedError
+        from collections import deque
+        dq = deque(nums)
+        print(dq)
+        # what i have to do here
+        return list(dq) # what's even a point of this task, i don't get it.
+
 
     @staticmethod
     def pop_left(nums):
         """Take from the left, return the value.   -> 4"""
-        raise NotImplementedError
+
+        dq = deque(nums)
+        return dq.popleft()
 
     @staticmethod
     def push_both_ends(nums, left, right):
         """Add left on the left and right on the right, return as a list.
         ([1,2], 0, 3) -> [0, 1, 2, 3]"""
-        raise NotImplementedError
+        dq = deque(nums)
+        dq.appendleft(left)
+        dq.append(right)
+        return list(dq)
 
     @staticmethod
     def bfs_order(adj, start):
@@ -39,7 +50,20 @@ class Deq:
         (ADJ, 0) -> [0, 1, 2, 3]
 
         This is the template you will reuse for grids and trees. Write it from memory."""
-        raise NotImplementedError
+        dq = deque([start])
+        order = []
+        seen = {start}
+        while dq:
+            node = dq.popleft()
+            order.append(node)
+            print( 'at node',node,'order', order)
+            for nxt in adj[node]:
+                if nxt not in seen:
+                    seen.add(nxt)
+                    dq.append(nxt)
+                    print('adding', nxt, end=', ')
+        return order # explain to me why seen? what is this task and what is BFS generally
+
 
 
 class Heap:
@@ -48,28 +72,40 @@ class Heap:
     @staticmethod
     def heapify_root(nums):
         """Heapify the list, then return its smallest element.   -> 1"""
-        raise NotImplementedError
+        h = nums
+        heapq.heapify(nums)
+        return nums[0]
 
     @staticmethod
     def push_then_pop(nums, x):
         """Heapify, push x, pop the smallest and return it.   (NUMS, 0) -> 0"""
-        raise NotImplementedError
+        print(nums)
+        heapq.heapify(nums)
+        print(nums)
+        heapq.heappush(nums, x)
+        print(nums)
+        print(list(nums))
+        return heapq.heappop(nums)
 
     @staticmethod
     def k_smallest(nums, k):
         """(NUMS, 3) -> [1, 2, 3]   — the module has a one-call answer"""
-        raise NotImplementedError
+        # heapq.heapify(nums)
+        return heapq.nsmallest(k, nums)
 
     @staticmethod
     def k_largest(nums, k):
         """(NUMS, 3) -> [9, 7, 7]"""
-        raise NotImplementedError
+        return heapq.nlargest(k, nums)
 
     @staticmethod
     def max_heap_pop(nums):
         """Largest element, using a MIN-heap and the standard trick.   -> 9"""
-        raise NotImplementedError
-
+        # return heapq.nsmallest(1, nums, key=lambda n: n*-1)[0]
+        h = []
+        for n in nums:
+            heapq.heappush(h, -n)
+        return -heapq.heappop(h)
 
 class TopK:
     """The shape Amazon actually asks. No sort-and-slice."""
@@ -77,13 +113,24 @@ class TopK:
     @staticmethod
     def top_k_frequent(items, k):
         """The k commonest values, commonest first.   (WORDS, 2) -> ['pear', 'apple']"""
-        raise NotImplementedError
+        # heapq.heapify(items)
+        # print(items)
+        # return heapq.nlargest(2, items)
+
+        from collections import Counter
+
+        counts = Counter(items)
+        return heapq.nlargest(k, counts, key=counts.get)
+
 
     @staticmethod
     def k_closest(pts, k):
         """The k points nearest the origin, no sqrt, via a heap with a key.
         (PTS, 2) -> [(-2, 0), (1, 2)]"""
-        raise NotImplementedError
+
+        #PTS = [(1, 2), (3, 1), (-2, 0)]
+
+        return heapq.nsmallest(k, pts, key=lambda point: point[1]**2 + point[0]**2 )
 
 
 CHECKS = [
