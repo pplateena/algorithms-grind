@@ -6,51 +6,22 @@ class Solution(object):
         :rtype: int
         """
 
-        # left = 0
-        # while left < l:
-        #     # sub_array = [nums[left]]
-        #     total = nums[left]
-        #     if total == k:
-        #         counter += 1
-        #         # left += 1
+        seen = {}
+        total = counter = 0
+        seen[0] = 1
 
-        #     # else:
-        #     right = left + 1
-        #     while right < l:
-        #         # sub_array.append(nums[right])
-        #         total += nums[right]
-        #         if total == k:
-        #             counter += 1
-        #         right += 1
+        for n in nums:
+            total += n
 
-        #     left += 1
-
-        # if sum(nums) == k:
-        #     counter += 1
-
-        counter = 0
-        l = len(nums)
-
-        if l < 2:
-            return 1 if sum(nums) == k else 0
-
-        for left in range(l):
-
-            total = nums[left]
-            if total == k:
-                counter += 1
-
-            for right in range(left + 1, l):
-
-                total += nums[right]
-                if total == k:
-                    counter += 1
+            counter += seen.get(total-k, 0)
+            seen[total] = seen.get(total, 0) + 1
 
         return counter
+
 if __name__ == "__main__":
     s = Solution()
 
-    assert s.subarraySum([1,-1,0,1,-1], 0) == 5
+    assert s.subarraySum([1,-1,0,1,-1], 0) == 7
     assert s.subarraySum(nums = [1,2,3], k = 3) == 2
     assert s.subarraySum(nums = [1,1,1], k = 2) == 2
 
