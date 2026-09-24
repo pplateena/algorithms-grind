@@ -10,28 +10,11 @@ class Solution(object):
         from math import sqrt
         # h = points
         # √(x1 - x2)2 + (y1 - y2)2
-        # return heapq.nsmallest(k, h, key = lambda p: sqrt((0 - p[0])**2 + (0 - p[1])**2))
+        return heapq.nsmallest(k, points, key = lambda p: (0 - p[0])**2 + (0 - p[1])**2)
 
         # sorted_points = sorted(points, key = lambda p: sqrt((0 - p[0])**2 + (0 - p[1])**2))
         # return sorted_points[:k]
 
-        h = []
-        heapq.heapify(h)
-        storage = defaultdict(list)
-        for p in points:
-            d = sqrt((0 - p[0]) ** 2 + (0 - p[1]) ** 2)
-            heapq.heappush(h, d)
-
-            if p not in storage[d]:
-                storage[d] += [p]
-
-        n_smallest = []
-        while len(n_smallest) < k:
-            # n_smallest.append(storage[heapq.heappop(h)])
-            n_smallest += storage[heapq.heappop(h)]
-
-        while len(n_smallest) > k:
-            n_smallest.pop()
 
         return n_smallest
 
