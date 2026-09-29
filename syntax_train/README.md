@@ -39,6 +39,7 @@ that mutates can't corrupt the ones after it.
 | `search.py` | `bisect`, hand-rolled binary search |
 | `grids.py` | shape, non-aliased construction, neighbours, transpose/rotate |
 | `numbers.py` | infinities, `divmod`, countdowns, two-pointer skeleton |
+| `bits.py` | binary strings ↔ ints, `&` `\|` `^`, masking the last bit (grows per lesson) |
 
 `day1-syntax.py` is the older single-file version (lists + lambda filled in, 22 Sep).
 Kept as a re-test.
